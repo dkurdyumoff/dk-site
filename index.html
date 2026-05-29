@@ -285,6 +285,99 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
 .fu.in{opacity:1;transform:translateY(0)}
 .fu.d1{transition-delay:.1s}.fu.d2{transition-delay:.2s}.fu.d3{transition-delay:.3s}
 
+/* ══════════════════════════════
+   MOTION EXTRAS
+══════════════════════════════ */
+
+/* Stagger fade — дети появляются по очереди */
+.stagger > * {
+  opacity:0;transform:translateY(24px);
+  transition:opacity .55s ease, transform .55s ease;
+}
+.stagger.in > *:nth-child(1){transition-delay:.05s}
+.stagger.in > *:nth-child(2){transition-delay:.15s}
+.stagger.in > *:nth-child(3){transition-delay:.25s}
+.stagger.in > *:nth-child(4){transition-delay:.35s}
+.stagger.in > *:nth-child(5){transition-delay:.45s}
+.stagger.in > *:nth-child(6){transition-delay:.55s}
+.stagger.in > * {opacity:1;transform:translateY(0)}
+
+/* Counter — цифры считаются вверх */
+.count-up{display:inline-block}
+
+/* Shimmer sweep на заголовках */
+@keyframes shimmer {
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+.shimmer-text {
+  background:linear-gradient(90deg,
+    var(--blue-l) 0%,
+    #fff 40%,
+    #a78bfa 60%,
+    var(--blue-l) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
+
+/* Card border trace on hover */
+.trace-card {
+  position:relative;overflow:hidden;
+}
+.trace-card::after {
+  content:'';
+  position:absolute;inset:0;border-radius:inherit;
+  background:conic-gradient(from var(--angle,0deg), transparent 75%, rgba(99,102,241,.8) 80%, transparent 85%);
+  opacity:0;transition:opacity .3s;
+}
+.trace-card:hover::after { opacity:1 }
+@property --angle {
+  syntax:'<angle>';inherits:false;initial-value:0deg;
+}
+.trace-card:hover { --angle:360deg; animation:spin-border 1.5s linear infinite }
+@keyframes spin-border { to { --angle:360deg } }
+.trace-card:hover::after { animation:spin-border 1.5s linear infinite; opacity:1 }
+
+/* Floating particles */
+.particles {
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;
+}
+.particle {
+  position:absolute;border-radius:50%;
+  background:var(--blue-l);opacity:0;
+  animation:particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0%  {transform:translateY(100vh) scale(0);opacity:0}
+  10% {opacity:.35}
+  90% {opacity:.15}
+  100%{transform:translateY(-10vh) scale(1);opacity:0}
+}
+
+/* Hero text entrance */
+.hero-entrance {
+  opacity:0;transform:translateY(20px);
+  animation:heroIn .8s ease forwards;
+}
+.hero-entrance.d1{animation-delay:.1s}
+.hero-entrance.d2{animation-delay:.25s}
+.hero-entrance.d3{animation-delay:.4s}
+.hero-entrance.d4{animation-delay:.55s}
+@keyframes heroIn{
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Pulse glow on metric values */
+@keyframes valueGlow {
+  0%,100%{text-shadow:none}
+  50%{text-shadow:0 0 20px currentColor}
+}
+.mc-val { animation:valueGlow 3s ease-in-out infinite }
+.mc:nth-child(2) .mc-val{animation-delay:.6s}
+.mc:nth-child(3) .mc-val{animation-delay:1.2s}
+.mc:nth-child(4) .mc-val{animation-delay:1.8s}
+
 /* Responsive */
 @media(max-width:900px){
   .hero-wrap{grid-template-columns:1fr;gap:28px}
@@ -324,23 +417,24 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
 <section id="hero">
   <div class="orb"></div>
   <div class="grid-bg"></div>
+  <div class="particles" id="particles"></div>
   <div class="container">
     <div class="hero-wrap">
 
       <!-- LEFT: text -->
       <div class="hero-left">
-        <div class="hero-badge">
+        <div class="hero-badge hero-entrance">
           <span class="badge-dot"></span>
           <span>Strategy Portfolio Consultant</span>
         </div>
-        <h1 class="display hero-title" style="margin-bottom:18px">
+        <h1 class="display hero-title hero-entrance d1 shimmer-text" style="margin-bottom:18px">
           Дмитрий<br>
           <span class="grad-text">Курдюмов</span>
         </h1>
-        <p class="subhead" style="margin-bottom:18px;max-width:480px">
+        <p class="subhead hero-entrance d2" style="margin-bottom:18px;max-width:480px">
           Строю систему управления, которая соединяет стратегию с исполнением. Внедряю Strategy Portfolio Framework в tech-компаниях.
         </p>
-        <div class="hero-btns">
+        <div class="hero-btns hero-entrance d3">
           <a href="https://t.me/Agileguru" target="_blank" class="btn-p"><span>✈&nbsp; Написать в Telegram</span></a>
           <a href="#process" class="btn-g"><span>Как я работаю ↓</span></a>
         </div>
@@ -361,7 +455,7 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
     </div>
 
     <!-- Metric cards — full width, 5 equal columns, below both blocks -->
-    <div class="mc-grid">
+    <div class="mc-grid stagger fu">
 
       <div class="mc">
         <div class="mc-lbl">Масштаб команд</div>
@@ -441,7 +535,7 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
       <div class="eyebrow">Что я внедряю</div>
       <h2 class="heading">Система управления и принятия решений<br>на всех уровнях — от стратегии до исполнения</h2>
     </div>
-    <div class="sol-grid fu">
+    <div class="sol-grid stagger fu">
 
       <div class="sol-card">
         <div class="sol-num">01</div>
@@ -515,7 +609,7 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
       <div class="eyebrow">Опыт</div>
       <h2 class="heading">Компании, где я строил системы</h2>
     </div>
-    <div class="co-grid fu">
+    <div class="co-grid stagger fu">
       <div class="co-card">
         <div class="co-name">VK</div>
         <div class="co-role">Head of Portfolio Ops</div>
