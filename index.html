@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дмитрий Курдюмов — Strategy Portfolio Consultant</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#07070f;
+  --bg2:#0d0d1e;
+  --blue:#3b82f6;
+  --blue-l:#60a5fa;
+  --green:#34d399;
+  --red:#f87171;
+  --white:#ffffff;
+  --gray:#94a3b8;
+  --card:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.09);
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.display{font-size:clamp(2.8rem,5.2vw,4.8rem);font-weight:800;line-height:1.04;letter-spacing:-.026em}
+.heading{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.015em}
+.subhead{font-size:clamp(.95rem,1.4vw,1.1rem);color:var(--gray);line-height:1.75}
+.container{max-width:1100px;margin:0 auto;padding:0 28px}
+section{padding:72px 0}
+
+/* ── Nav ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:16px 28px;display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(24px);background:rgba(7,7,15,.82);border-bottom:1px solid var(--border);
+}
+.nav-left{display:flex;align-items:center;gap:14px}
+.nav-logo{font-weight:800;font-size:1.05rem;color:var(--white);letter-spacing:-.01em}
+.nav-cta{background:var(--blue);color:#fff;border:none;padding:10px 22px;border-radius:9px;font-size:.88rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:var(--blue-l);transform:translateY(-1px);box-shadow:0 6px 20px rgba(59,130,246,.35)}
+
+.btn-edit{
+  display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--gray);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;
+}
+.btn-edit:hover{background:rgba(255,255,255,.1);color:#fff}
+.btn-edit.on{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.4);color:var(--blue-l)}
+
+/* ── Edit toolbar ── */
+#toolbar{
+  display:none;position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:300;
+  background:rgba(10,10,26,.95);backdrop-filter:blur(20px);
+  border:1px solid rgba(59,130,246,.35);border-radius:14px;
+  padding:11px 18px;gap:10px;align-items:center;
+  box-shadow:0 8px 40px rgba(0,0,0,.6);
+}
+#toolbar.on{display:flex}
+.tbl{font-size:.76rem;color:var(--gray);margin-right:2px}
+.tb{padding:8px 15px;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.tb-save{background:var(--blue);color:#fff}.tb-save:hover{background:var(--blue-l)}
+.tb-dl{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--border)}.tb-dl:hover{background:rgba(255,255,255,.15)}
+.tb-reset{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}.tb-reset:hover{background:rgba(239,68,68,.2)}
+
+/* ── Edit mode ── */
+body.em [data-e]{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  caret-color:#fff;
+  cursor:text;
+  border-radius:3px;
+}
+body.em [data-e]:hover{
+  outline:2px dashed rgba(59,130,246,.5);
+  outline-offset:3px;
+}
+body.em [data-e]:focus{
+  outline:2px solid var(--blue-l) !important;
+  outline-offset:3px;
+}
+/* gradient title: убираем clip чтобы текст был виден */
+body.em .grad-text{
+  background:none !important;
+  -webkit-background-clip:unset !important;
+  background-clip:unset !important;
+  color:var(--blue-l) !important;
+  -webkit-text-fill-color:var(--blue-l) !important;
+}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:100px;padding-bottom:32px}
+
+.orb{
+  position:absolute;width:1000px;height:1000px;border-radius:50%;
+  background:radial-gradient(circle,rgba(59,130,246,.18) 0%,rgba(99,102,241,.08) 40%,transparent 70%);
+  top:50%;right:-200px;transform:translateY(-50%);
+  animation:pulse 8s ease-in-out infinite;pointer-events:none;
+}
+@keyframes pulse{0%,100%{opacity:.7;transform:translateY(-50%) scale(1)}50%{opacity:1;transform:translateY(-50%) scale(1.1)}}
+
+.grid-bg{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 60% 50%,black 30%,transparent 100%);
+  pointer-events:none;
+}
+
+/* 2-col layout: left=text, right=photo */
+.hero-wrap{
+  display:grid;grid-template-columns:1fr 360px;gap:48px;
+  align-items:start;position:relative;z-index:1;padding:10px 0 8px;
+}
+
+/* Left */
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);
+  border-radius:100px;padding:5px 14px;font-size:.76rem;color:var(--blue-l);
+  margin-bottom:16px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;
+}
+.badge-dot{width:7px;height:7px;background:var(--blue-l);border-radius:50%;animation:blink 2s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+.hero-title{margin-bottom:10px}
+.grad-text{
+  background:linear-gradient(135deg,var(--blue-l),#a78bfa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{margin-bottom:34px;max-width:440px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+
+.btn-p{background:var(--blue);color:#fff;padding:13px 26px;border-radius:10px;font-weight:700;text-decoration:none;font-size:.92rem;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-p:hover{background:var(--blue-l);transform:translateY(-2px);box-shadow:0 10px 28px rgba(59,130,246,.38)}
+.btn-g{color:var(--gray);padding:13px 18px;border-radius:10px;font-weight:500;text-decoration:none;font-size:.88rem;transition:all .2s;border:1px solid var(--border)}
+.btn-g:hover{color:#fff;border-color:rgba(255,255,255,.2)}
+
+/* Left col */
+.hero-left{display:flex;flex-direction:column;align-items:flex-start}
+
+/* Right: photo full height */
+.hero-right{min-width:0}
+
+.photo-wrap{
+  width:100%;height:100%;min-height:320px;max-height:380px;border-radius:20px;overflow:hidden;
+}
+.hero-photo{
+  width:100%;height:100%;object-fit:cover;object-position:top center;display:block;
+}
+
+/* metric cards — 5 equal columns, full width, below both hero blocks */
+.mc-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-top:24px;
+}
+
+.mc{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:18px 16px;backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;
+  transition:all .25s;
+}
+.mc:hover{border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.06);transform:translateY(-3px)}
+
+.mc-lbl{font-size:.63rem;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:8px}
+.mc-val{font-size:1.9rem;font-weight:800;line-height:1;margin-bottom:4px}
+.mc-sub{font-size:.7rem;color:var(--gray);line-height:1.4;margin-top:auto}
+
+/* big arrow styles */
+.arrow-up{color:var(--green)}
+.arrow-dn{color:var(--green)}
+.c-blue{color:var(--blue-l)}
+.c-wh{color:#fff}
+
+/* progress card */
+.prog-wrap{margin-top:8px}
+.prog-track{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;width:0;background:linear-gradient(90deg,var(--blue),#8b5cf6);transition:width 1.6s cubic-bezier(.4,0,.2,1) .4s}
+
+/* ══════════════════════════════
+   PROBLEM
+══════════════════════════════ */
+#problem{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
+
+.eyebrow{display:inline-block;font-size:.72rem;font-weight:700;color:var(--blue-l);text-transform:uppercase;letter-spacing:.1em;margin-bottom:13px}
+.sec-hd{margin-bottom:48px}
+.sec-hd .heading{margin-bottom:10px}
+
+.gap-box{
+  display:flex;align-items:center;
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:40px 36px;margin-bottom:44px;position:relative;overflow:hidden;
+}
+.gap-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,.05) 0%,transparent 50%,rgba(239,68,68,.05) 100%)}
+.gap-side{flex:1;text-align:center;position:relative;z-index:1}
+.gs-ico{font-size:2rem;margin-bottom:9px}
+.gs-lbl{font-size:.68rem;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:600}
+.gs-title{font-size:1.05rem;font-weight:700}
+
+.gap-mid{flex:0 0 200px;display:flex;flex-direction:column;align-items:center;gap:11px;position:relative;z-index:1}
+.gap-line{width:100%;height:2px;background:linear-gradient(90deg,rgba(59,130,246,.5),rgba(239,68,68,.5));position:relative}
+.gap-line::after{content:'⚡';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg2);padding:0 10px;font-size:1.1rem}
+.gap-badge{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:100px;padding:6px 16px;font-size:.78rem;color:var(--red);font-weight:700;white-space:nowrap}
+
+.prob-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.prob-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 20px;transition:all .3s}
+.prob-card:hover{border-color:rgba(239,68,68,.25);transform:translateY(-4px)}
+.pc-ico{font-size:1.3rem;margin-bottom:12px}
+.prob-card h3{font-size:.92rem;font-weight:700;margin-bottom:7px}
+.prob-card p{font-size:.83rem;color:var(--gray);line-height:1.65}
+
+.stat-bar{
+  background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(99,102,241,.07));
+  border:1px solid rgba(59,130,246,.2);border-radius:18px;
+  padding:40px;display:flex;align-items:center;gap:36px;
+}
+.stat-n{font-size:clamp(3.5rem,7vw,5.5rem);font-weight:900;color:var(--blue-l);line-height:1;flex-shrink:0}
+.stat-b h3{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+.stat-b p{font-size:.88rem;color:var(--gray);line-height:1.65;max-width:500px}
+
+/* ══════════════════════════════
+   PROCESS
+══════════════════════════════ */
+#process{background:var(--bg2)}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.steps::before{content:'';position:absolute;top:40px;left:calc(12.5% + 22px);right:calc(12.5% + 22px);height:1px;background:linear-gradient(90deg,rgba(59,130,246,.4),rgba(139,92,246,.4),rgba(59,130,246,.4))}
+.step{text-align:center;padding:0 14px}
+.step-ico{width:80px;height:80px;border-radius:20px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 18px;position:relative;z-index:1;transition:all .3s}
+.step:hover .step-ico{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.4);transform:scale(1.06)}
+.sn{position:absolute;top:-9px;right:-9px;width:21px;height:21px;border-radius:50%;background:var(--blue);color:#fff;font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step h3{font-size:.95rem;font-weight:700;margin-bottom:7px}
+.step p{font-size:.82rem;color:var(--gray);line-height:1.65}
+
+/* ══════════════════════════════
+   COMPANIES
+══════════════════════════════ */
+#companies{background:var(--bg)}
+
+.co-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:44px}
+.co-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 13px;text-align:center;transition:all .3s}
+.co-card:hover{border-color:rgba(59,130,246,.3);transform:translateY(-5px);background:rgba(59,130,246,.05)}
+.co-name{font-size:.98rem;font-weight:800;margin-bottom:5px}
+.co-role{font-size:.65rem;color:var(--blue-l);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px;font-weight:700}
+.co-res{font-size:.76rem;color:var(--gray);line-height:1.5}
+
+/* ══════════════════════════════
+   RESULTS
+══════════════════════════════ */
+#results{background:var(--bg2)}
+
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.rc{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;transition:all .3s}
+.rc:hover{transform:translateY(-4px)}
+.rc.hl{background:linear-gradient(135deg,rgba(59,130,246,.11),rgba(99,102,241,.07));border-color:rgba(59,130,246,.25)}
+.rc-ico{font-size:1.3rem;margin-bottom:13px}
+.rc-num{font-size:2.5rem;font-weight:900;line-height:1;margin-bottom:8px}
+.rc-title{font-size:.93rem;font-weight:700;margin-bottom:7px}
+.rc-desc{font-size:.82rem;color:var(--gray);line-height:1.65}
+.c-money{color:var(--green)}
+.rc-num.lbl{font-size:1.45rem;color:#fff}
+
+/* ══════════════════════════════
+   CTA
+══════════════════════════════ */
+#cta{background:var(--bg)}
+.cta-box{
+  background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(99,102,241,.08));
+  border:1px solid rgba(59,130,246,.2);border-radius:24px;
+  padding:64px 48px;text-align:center;position:relative;overflow:hidden;
+}
+.cta-box::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.14),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-box .heading,.cta-box .subhead,.cta-btns,.cta-note{position:relative;z-index:1}
+.cta-box .heading{margin-bottom:13px}
+.cta-box .subhead{margin-bottom:32px;max-width:460px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-note{margin-top:16px;font-size:.8rem;color:var(--gray)}
+
+footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-top:1px solid var(--border)}
+
+/* Scroll fade */
+.fu{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.fu.in{opacity:1;transform:translateY(0)}
+.fu.d1{transition-delay:.1s}.fu.d2{transition-delay:.2s}.fu.d3{transition-delay:.3s}
+
+/* Responsive */
+@media(max-width:900px){
+  .hero-wrap{grid-template-columns:1fr;gap:28px}
+  .photo-wrap{height:280px}
+  .mc-grid{grid-template-columns:repeat(3,1fr)}
+  .prob-cards{grid-template-columns:1fr}
+  .stat-bar{flex-direction:column;text-align:center;gap:16px}
+  .steps{grid-template-columns:repeat(2,1fr);gap:24px}
+  .steps::before{display:none}
+  .co-grid{grid-template-columns:repeat(2,1fr)}
+  .res-grid{grid-template-columns:1fr}
+  .gap-box{flex-direction:column;gap:20px}
+  .cta-box{padding:40px 24px}
+}
+@media(max-width:600px){
+  section{padding:48px 0}
+  .hero-wrap{gap:20px}
+  .photo-wrap{height:220px}
+  .mc-grid{grid-template-columns:repeat(2,1fr)}
+  .mc:last-child{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">DK</div>
+    <button class="btn-edit" id="editBtn" onclick="toggleEdit()">✏️ Редактировать</button>
+  </div>
+  <a href="https://t.me/Agileguru" target="_blank" class="nav-cta">✈ Telegram @Agileguru</a>
+</nav>
+
+<!-- Edit toolbar -->
+<div id="toolbar">
+  <span class="tbl">Режим редактирования</span>
+  <button class="tb tb-save" onclick="saveLS()">💾 Сохранить</button>
+  <button class="tb tb-dl" onclick="dlHtml()">📥 Скачать HTML</button>
+  <button class="tb tb-reset" onclick="resetLS()">↩ Сбросить</button>
+</div>
+
+<!-- ══════ HERO ══════ -->
+<section id="hero">
+  <div class="orb"></div>
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="hero-wrap">
+
+      <!-- LEFT: text -->
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span data-e="badge">Strategy Portfolio Consultant</span>
+        </div>
+        <h1 class="display hero-title" style="margin-bottom:18px" data-e="htitle">
+          Дмитрий<br>
+          <span class="grad-text">Курдюмов</span>
+        </h1>
+        <p class="subhead" style="margin-bottom:18px;max-width:480px" data-e="hsub">
+          Строю систему управления, которая соединяет стратегию с исполнением. Внедряю Strategy Portfolio Framework в tech-компаниях.
+        </p>
+        <div class="hero-btns">
+          <a href="https://t.me/Agileguru" target="_blank" class="btn-p"><span data-e="btn1">✈&nbsp; Написать в Telegram</span></a>
+          <a href="#process" class="btn-g"><span data-e="btn2">Как я работаю ↓</span></a>
+        </div>
+      </div>
+
+      <!-- RIGHT: photo -->
+      <div class="hero-right">
+        <div class="photo-wrap">
+          <img
+            id="heroPhoto"
+            src="CV/GWk_JhIt4NoI_WWoVZD7U5W-498nXwoco9woJavUT44ea5b8f9EqpB8_zgD7kLjqD5oYMRr5_z_u6jpYKYwqdbGT.jpg"
+            class="hero-photo"
+            alt="Дмитрий Курдюмов"
+          >
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Metric cards — full width, 5 equal columns, below both blocks -->
+    <div class="mc-grid">
+
+      <div class="mc">
+        <div class="mc-lbl" data-e="m1l">Масштаб команд</div>
+        <div class="mc-val c-wh" data-e="m1v">2000+</div>
+        <div class="mc-sub" data-e="m1s">сотрудников в периметре</div>
+      </div>
+
+      <div class="mc">
+        <div class="mc-lbl" data-e="m2l">ROI портфеля</div>
+        <div class="mc-val arrow-up" data-e="m2v">↑</div>
+        <div class="mc-sub" data-e="m2s">ресурсы на ценных проектах</div>
+      </div>
+
+      <div class="mc">
+        <div class="mc-lbl" data-e="m3l">Затраты</div>
+        <div class="mc-val arrow-dn" data-e="m3v">↓</div>
+        <div class="mc-sub" data-e="m3s">оптимизация портфеля</div>
+      </div>
+
+      <div class="mc">
+        <div class="mc-lbl" data-e="m4l">Time-to-Market</div>
+        <div class="mc-val c-blue" data-e="m4v">×3</div>
+        <div class="mc-sub" data-e="m4s">ускорение вывода продуктов</div>
+      </div>
+
+      <div class="mc">
+        <div class="mc-lbl" data-e="m5l">Сходимость планов</div>
+        <div class="mc-val c-blue" data-e="m5v" style="font-size:1.3rem">50% → 85%</div>
+        <div class="prog-wrap" style="margin-top:8px">
+          <div class="prog-track"><div class="prog-fill" id="pf"></div></div>
+        </div>
+        <div class="mc-sub" style="margin-top:5px" data-e="m5s">предсказуемость</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════ PROBLEM ══════ -->
+<section id="problem">
+  <div class="container">
+    <div class="sec-hd fu">
+      <div class="eyebrow">Типичная проблема</div>
+      <h2 class="heading" data-e="pt">Между стратегией и исполнением — разрыв</h2>
+      <p class="subhead" style="margin-top:10px;max-width:580px" data-e="ps">Компания растёт, команды работают — но деньги и люди уходят не туда.</p>
+    </div>
+
+    <div class="gap-box fu">
+      <div class="gap-side">
+        <div class="gs-ico">🎯</div>
+        <div class="gs-lbl">C-level</div>
+        <div class="gs-title" data-e="gl">Стратегия и цели</div>
+      </div>
+      <div class="gap-mid">
+        <div class="gap-line"></div>
+        <div class="gap-badge" data-e="gb">⚡ Пропасть</div>
+      </div>
+      <div class="gap-side">
+        <div class="gs-ico">⚙️</div>
+        <div class="gs-lbl">Команды</div>
+        <div class="gs-title" data-e="gr">Ежедневное исполнение</div>
+      </div>
+    </div>
+
+    <div class="prob-cards">
+      <div class="prob-card fu">
+        <div class="pc-ico">🔀</div>
+        <h3 data-e="p1t">Команды идут несогласованно</h3>
+        <p data-e="p1d">Каждое направление тянет в свою сторону. Нет общего приоритета — нет общего результата. Усилия рассеиваются.</p>
+      </div>
+      <div class="prob-card fu d1">
+        <div class="pc-ico">💸</div>
+        <h3 data-e="p2t">Бюджеты уходят в инертные проекты</h3>
+        <p data-e="p2d">Ресурсы продолжают финансировать проекты, которые давно потеряли стратегическую ценность — но никто не остановил.</p>
+      </div>
+      <div class="prob-card fu d2">
+        <div class="pc-ico">🐢</div>
+        <h3 data-e="p3t">Компания растёт медленнее потенциала</h3>
+        <p data-e="p3d">Деньги и люди есть. Но они не на том. Конкуренты идут быстрее — не потому что сильнее, а потому что сфокусированнее.</p>
+      </div>
+    </div>
+
+    <div class="stat-bar fu">
+      <div class="stat-n" data-e="stn">70%</div>
+      <div class="stat-b">
+        <h3 data-e="sth">портфеля инициатив можно оптимизировать</h3>
+        <p data-e="std">За счёт правильно построенной системы управления — без найма дополнительных людей и увеличения бюджета. Только за счёт структуры, приоритетов и прозрачности принятия решений.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PROCESS ══════ -->
+<section id="process">
+  <div class="container">
+    <div class="sec-hd fu">
+      <div class="eyebrow">Методология</div>
+      <h2 class="heading" data-e="prt">Как я работаю</h2>
+      <p class="subhead" style="margin-top:10px;max-width:460px" data-e="prs">Чёткий процесс от первого контакта до работающей системы</p>
+    </div>
+    <div class="steps fu">
+      <div class="step">
+        <div class="step-ico">💬<span class="sn">1</span></div>
+        <h3 data-e="s1t">Запрос</h3>
+        <p data-e="s1d">Обсуждаем задачу, контекст компании и ожидаемый результат. Договариваемся о критериях успеха.</p>
+      </div>
+      <div class="step">
+        <div class="step-ico">🔍<span class="sn">2</span></div>
+        <h3 data-e="s2t">Диагностика</h3>
+        <p data-e="s2d">Анализирую текущую систему управления, портфель инициатив и точки принятия решений.</p>
+      </div>
+      <div class="step">
+        <div class="step-ico">📐<span class="sn">3</span></div>
+        <h3 data-e="s3t">План</h3>
+        <p data-e="s3d">Проектирую целевую модель: операционный ритм, портфельный процесс, governance и форматы синхронизации.</p>
+      </div>
+      <div class="step">
+        <div class="step-ico">🚀<span class="sn">4</span></div>
+        <h3 data-e="s4t">Внедрение</h3>
+        <p data-e="s4d">Запускаю систему вместе с командой. Обеспечиваю приживаемость, устойчивость и передачу знаний.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ COMPANIES ══════ -->
+<section id="companies">
+  <div class="container">
+    <div class="sec-hd fu">
+      <div class="eyebrow">Опыт</div>
+      <h2 class="heading" data-e="ct">Компании, где я строил системы</h2>
+    </div>
+    <div class="co-grid fu">
+      <div class="co-card">
+        <div class="co-name" data-e="c1n">VK</div>
+        <div class="co-role" data-e="c1r">Head of Portfolio Ops</div>
+        <div class="co-res" data-e="c1d">End-to-end операционный цикл для 2000+ человек</div>
+      </div>
+      <div class="co-card">
+        <div class="co-name" data-e="c2n">X5 Group</div>
+        <div class="co-role" data-e="c2r">Agile Transformation</div>
+        <div class="co-res" data-e="c2d">Operating model для 12 продуктовых направлений</div>
+      </div>
+      <div class="co-card">
+        <div class="co-name" data-e="c3n">Crypto</div>
+        <div class="co-role" data-e="c3r">Head of Transformation</div>
+        <div class="co-res" data-e="c3d">Построил продуктовую операционную модель</div>
+      </div>
+      <div class="co-card">
+        <div class="co-name" data-e="c4n">Альфа-Банк</div>
+        <div class="co-role" data-e="c4r">Project Manager</div>
+        <div class="co-res" data-e="c4d">Экономия ~1 млрд ₽/год за счёт отказа от вендора</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ RESULTS ══════ -->
+<section id="results">
+  <div class="container">
+    <div class="sec-hd fu">
+      <div class="eyebrow">Результаты</div>
+      <h2 class="heading" data-e="rt">Что получает компания</h2>
+      <p class="subhead" style="margin-top:10px;max-width:520px" data-e="rs">Измеримые финансовые и операционные эффекты от внедрения системы управления портфелем</p>
+    </div>
+    <div class="res-grid">
+      <div class="rc hl fu">
+        <div class="rc-ico">📈</div>
+        <div class="rc-num c-money" data-e="r1n">↑ ROI</div>
+        <div class="rc-title" data-e="r1t">Портфель работает на цели</div>
+        <div class="rc-desc" data-e="r1d">Ресурсы перераспределяются с инертных проектов на высокоприоритетные. Деньги идут туда, где создают реальную ценность.</div>
+      </div>
+      <div class="rc hl fu d1">
+        <div class="rc-ico">💰</div>
+        <div class="rc-num c-money" data-e="r2n">↓ Затраты</div>
+        <div class="rc-title" data-e="r2t">Оптимизация расходов портфеля</div>
+        <div class="rc-desc" data-e="r2d">Полная видимость по всем инициативам позволяет остановить проекты без стратегической ценности и высвободить бюджет.</div>
+      </div>
+      <div class="rc fu d2">
+        <div class="rc-ico">⚡</div>
+        <div class="rc-num c-blue" data-e="r3n">×3</div>
+        <div class="rc-title" data-e="r3t">Ускорение Time-to-Market</div>
+        <div class="rc-desc" data-e="r3d">Устранение зависимостей и чёткий приоритет снижают TTM с 6 до 2 месяцев.</div>
+      </div>
+      <div class="rc fu">
+        <div class="rc-ico">🎯</div>
+        <div class="rc-num c-blue" data-e="r4n">90%</div>
+        <div class="rc-title" data-e="r4t">Предсказуемость исполнения</div>
+        <div class="rc-desc" data-e="r4d">Планы сходятся. Команды знают приоритеты и двигаются в одном направлении.</div>
+      </div>
+      <div class="rc fu d1">
+        <div class="rc-ico">🧭</div>
+        <div class="rc-num lbl" data-e="r5n">Alignment</div>
+        <div class="rc-title" data-e="r5t">Стратегия → Execution</div>
+        <div class="rc-desc" data-e="r5d">Каждая команда понимает, как её работа связана со стратегическими целями компании.</div>
+      </div>
+      <div class="rc fu d2">
+        <div class="rc-ico">🔒</div>
+        <div class="rc-num lbl" data-e="r6n">Governance</div>
+        <div class="rc-title" data-e="r6t">Точки принятия решений</div>
+        <div class="rc-desc" data-e="r6d">Форумы, комитеты и ревью — правильные решения на правильном уровне, вовремя.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA ══════ -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-box fu">
+      <h2 class="heading" data-e="ctat">Обсудим вашу задачу</h2>
+      <p class="subhead" data-e="ctas">Первый разговор — бесплатно. Расскажите о ситуации, и я скажу, чем могу помочь.</p>
+      <div class="cta-btns">
+        <a href="https://t.me/Agileguru" target="_blank" class="btn-p" style="font-size:1rem;padding:15px 34px"><span data-e="btn3">✈&nbsp; Написать в Telegram</span></a>
+      </div>
+      <div class="cta-note">@Agileguru · Дмитрий Курдюмов</div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Дмитрий Курдюмов · Strategy Portfolio Consultant</footer>
+
+<script>
+/* scroll fade */
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in') }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+document.querySelectorAll('.fu').forEach(el => io.observe(el))
+
+/* progress bar */
+const pf = document.getElementById('pf')
+new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) pf.style.width = '82%' }), { threshold: 0.5 }).observe(pf.closest('.mc'))
+
+
+/* ── localStorage restore ── */
+const SK = 'dk_v1'
+function restore() {
+  const d = JSON.parse(localStorage.getItem(SK) || '{}')
+  Object.entries(d).forEach(([k, v]) => {
+    const el = document.querySelector(`[data-e="${k}"]`)
+    if(el) el.innerHTML = v
+  })
+}
+restore()
+
+/* ── Edit mode ── */
+let em = false
+
+// block link navigation while editing
+document.addEventListener('click', e => {
+  if(!em) return
+  const a = e.target.closest('a')
+  if(a) e.preventDefault()
+}, true)
+
+function toggleEdit() {
+  em = !em
+  document.body.classList.toggle('em', em)
+  document.getElementById('toolbar').classList.toggle('on', em)
+  const btn = document.getElementById('editBtn')
+  btn.classList.toggle('on', em)
+  btn.textContent = em ? '✓ Выйти' : '✏️ Редактировать'
+  document.querySelectorAll('[data-e]').forEach(el => {
+    el.contentEditable = em ? 'true' : 'false'
+  })
+}
+
+function saveLS() {
+  const d = {}
+  document.querySelectorAll('[data-e]').forEach(el => { d[el.dataset.e] = el.innerHTML })
+  localStorage.setItem(SK, JSON.stringify(d))
+  const b = document.querySelector('.tb-save')
+  b.textContent = '✓ Сохранено'; setTimeout(() => b.textContent = '💾 Сохранить', 1600)
+}
+
+function resetLS() {
+  if(!confirm('Сбросить все правки?')) return
+  localStorage.removeItem(SK); location.reload()
+}
+
+function dlHtml() {
+  const cl = document.documentElement.cloneNode(true)
+  cl.querySelector('body').classList.remove('em')
+  cl.querySelector('#toolbar').classList.remove('on')
+  cl.querySelector('#editBtn').classList.remove('on')
+  cl.querySelector('#editBtn').textContent = '✏️ Редактировать'
+  document.querySelectorAll('[data-e]').forEach(el => {
+    const t = cl.querySelector(`[data-e="${el.dataset.e}"]`)
+    if(t){ t.innerHTML = el.innerHTML; t.removeAttribute('contenteditable') }
+  })
+  const b = new Blob(['<!DOCTYPE html>\n' + cl.outerHTML], { type: 'text/html' })
+  const a = document.createElement('a'); a.href = URL.createObjectURL(b)
+  a.download = 'dmitry-kurdyumov.html'; a.click()
+}
+</script>
+</body>
+</html>
