@@ -224,9 +224,38 @@ body.em .grad-text{
 .stat-b p{font-size:.88rem;color:var(--gray);line-height:1.65;max-width:500px}
 
 /* ══════════════════════════════
+   SOLUTION
+══════════════════════════════ */
+#solution{background:var(--bg2)}
+
+.sol-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+}
+
+.sol-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:32px 28px;position:relative;overflow:hidden;transition:all .3s;
+}
+.sol-card:hover{border-color:rgba(59,130,246,.35);transform:translateY(-4px);background:rgba(59,130,246,.05)}
+.sol-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),#8b5cf6);
+  opacity:0;transition:opacity .3s;
+}
+.sol-card:hover::before{opacity:1}
+
+.sol-num{
+  font-size:.7rem;font-weight:800;color:var(--blue-l);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;opacity:.7;
+}
+.sol-icon{font-size:1.6rem;margin-bottom:14px}
+.sol-card h3{font-size:1rem;font-weight:700;margin-bottom:10px;line-height:1.3}
+.sol-card p{font-size:.85rem;color:var(--gray);line-height:1.7}
+
+/* ══════════════════════════════
    PROCESS
 ══════════════════════════════ */
-#process{background:var(--bg2)}
+#process{background:var(--bg)}
 
 .steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
 .steps::before{content:'';position:absolute;top:40px;left:calc(12.5% + 22px);right:calc(12.5% + 22px);height:1px;background:linear-gradient(90deg,rgba(59,130,246,.4),rgba(139,92,246,.4),rgba(59,130,246,.4))}
@@ -293,6 +322,7 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
   .hero-wrap{grid-template-columns:1fr;gap:28px}
   .photo-wrap{height:280px}
   .mc-grid{grid-template-columns:repeat(3,1fr)}
+  .sol-grid{grid-template-columns:1fr}
   .prob-cards{grid-template-columns:1fr}
   .stat-bar{flex-direction:column;text-align:center;gap:16px}
   .steps{grid-template-columns:repeat(2,1fr);gap:24px}
@@ -461,6 +491,47 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
         <h3 data-e="sth">портфеля инициатив можно оптимизировать</h3>
         <p data-e="std">За счёт правильно построенной системы управления — без найма дополнительных людей и увеличения бюджета. Только за счёт структуры, приоритетов и прозрачности принятия решений.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SOLUTION ══════ -->
+<section id="solution">
+  <div class="container">
+    <div class="sec-hd fu">
+      <div class="eyebrow">Что я внедряю</div>
+      <h2 class="heading" data-e="sol-title">Система управления и принятия решений<br>на всех уровнях — от стратегии до исполнения</h2>
+    </div>
+    <div class="sol-grid fu">
+
+      <div class="sol-card">
+        <div class="sol-num">01</div>
+        <div class="sol-icon">🔄</div>
+        <h3 data-e="sol1t">Операционный ритм</h3>
+        <p data-e="sol1d">Стратегическое и квартальное планирование, управление рисками, подведение итогов на QBR — регулярные точки синхронизации, которые держат компанию на курсе.</p>
+      </div>
+
+      <div class="sol-card">
+        <div class="sol-num">02</div>
+        <div class="sol-icon">🎯</div>
+        <h3 data-e="sol2t">Управление портфелем с контрольными точками</h3>
+        <p data-e="sol2d">Вовремя останавливаем неэффективное, запускаем прорывное. Портфель живёт в связке со стратегией — каждый проект либо работает на цель, либо освобождает ресурс.</p>
+      </div>
+
+      <div class="sol-card">
+        <div class="sol-num">03</div>
+        <div class="sol-icon">📦</div>
+        <h3 data-e="sol3t">Стандарты продуктового цикла</h3>
+        <p data-e="sol3d">Единый процесс от идеи до релиза и оценки результата. Команды двигаются предсказуемо, решения принимаются в нужных точках, а не хаотично.</p>
+      </div>
+
+      <div class="sol-card">
+        <div class="sol-num">04</div>
+        <div class="sol-icon">🤖</div>
+        <h3 data-e="sol4t">Адаптация системы под AI</h3>
+        <p data-e="sol4d">Встраиваем AI в управленческие процессы и операционную систему — не как инструмент, а как часть архитектуры принятия решений.</p>
+      </div>
+
     </div>
   </div>
 </section>
