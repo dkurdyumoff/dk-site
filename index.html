@@ -40,53 +40,15 @@ nav{
 .nav-cta{background:var(--blue);color:#fff;border:none;padding:10px 22px;border-radius:9px;font-size:.88rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s}
 .nav-cta:hover{background:var(--blue-l);transform:translateY(-1px);box-shadow:0 6px 20px rgba(59,130,246,.35)}
 
-.btn-edit{
-  display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);
-  color:var(--gray);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;
-}
-.btn-edit:hover{background:rgba(255,255,255,.1);color:#fff}
-.btn-edit.on{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.4);color:var(--blue-l)}
 
-/* ── Edit toolbar ── */
-#toolbar{
-  display:none;position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:300;
-  background:rgba(10,10,26,.95);backdrop-filter:blur(20px);
-  border:1px solid rgba(59,130,246,.35);border-radius:14px;
-  padding:11px 18px;gap:10px;align-items:center;
-  box-shadow:0 8px 40px rgba(0,0,0,.6);
-}
-#toolbar.on{display:flex}
-.tbl{font-size:.76rem;color:var(--gray);margin-right:2px}
-.tb{padding:8px 15px;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;border:none;transition:all .2s}
-.tb-save{background:var(--blue);color:#fff}.tb-save:hover{background:var(--blue-l)}
-.tb-dl{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--border)}.tb-dl:hover{background:rgba(255,255,255,.15)}
-.tb-reset{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}.tb-reset:hover{background:rgba(239,68,68,.2)}
 
-/* ── Edit mode ── */
-body.em [data-e]{
-  color:#fff !important;
-  -webkit-text-fill-color:#fff !important;
-  caret-color:#fff;
-  cursor:text;
-  border-radius:3px;
-}
-body.em [data-e]:hover{
-  outline:2px dashed rgba(59,130,246,.5);
-  outline-offset:3px;
-}
-body.em [data-e]:focus{
-  outline:2px solid var(--blue-l) !important;
-  outline-offset:3px;
-}
-/* gradient title: убираем clip чтобы текст был виден */
-body.em .grad-text{
-  background:none !important;
-  -webkit-background-clip:unset !important;
-  background-clip:unset !important;
-  color:var(--blue-l) !important;
-  -webkit-text-fill-color:var(--blue-l) !important;
-}
+
+
+
+
+
+
+
 
 /* ══════════════════════════════
    HERO
@@ -347,18 +309,10 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
 <nav>
   <div class="nav-left">
     <div class="nav-logo">DK</div>
-    <button class="btn-edit" id="editBtn" onclick="toggleEdit()">✏️ Редактировать</button>
+    
   </div>
   <a href="https://t.me/Agileguru" target="_blank" class="nav-cta">✈ Telegram @Agileguru</a>
 </nav>
-
-<!-- Edit toolbar -->
-<div id="toolbar">
-  <span class="tbl">Режим редактирования</span>
-  <button class="tb tb-save" onclick="saveLS()">💾 Сохранить</button>
-  <button class="tb tb-dl" onclick="dlHtml()">📥 Скачать HTML</button>
-  <button class="tb tb-reset" onclick="resetLS()">↩ Сбросить</button>
-</div>
 
 <!-- ══════ HERO ══════ -->
 <section id="hero">
@@ -371,18 +325,18 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
       <div class="hero-left">
         <div class="hero-badge">
           <span class="badge-dot"></span>
-          <span data-e="badge">Strategy Portfolio Consultant</span>
+          <span>Strategy Portfolio Consultant</span>
         </div>
-        <h1 class="display hero-title" style="margin-bottom:18px" data-e="htitle">
+        <h1 class="display hero-title" style="margin-bottom:18px">
           Дмитрий<br>
           <span class="grad-text">Курдюмов</span>
         </h1>
-        <p class="subhead" style="margin-bottom:18px;max-width:480px" data-e="hsub">
+        <p class="subhead" style="margin-bottom:18px;max-width:480px">
           Строю систему управления, которая соединяет стратегию с исполнением. Внедряю Strategy Portfolio Framework в tech-компаниях.
         </p>
         <div class="hero-btns">
-          <a href="https://t.me/Agileguru" target="_blank" class="btn-p"><span data-e="btn1">✈&nbsp; Написать в Telegram</span></a>
-          <a href="#process" class="btn-g"><span data-e="btn2">Как я работаю ↓</span></a>
+          <a href="https://t.me/Agileguru" target="_blank" class="btn-p"><span>✈&nbsp; Написать в Telegram</span></a>
+          <a href="#process" class="btn-g"><span>Как я работаю ↓</span></a>
         </div>
       </div>
 
@@ -404,36 +358,36 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
     <div class="mc-grid">
 
       <div class="mc">
-        <div class="mc-lbl" data-e="m1l">Масштаб команд</div>
-        <div class="mc-val c-wh" data-e="m1v">2000+</div>
-        <div class="mc-sub" data-e="m1s">сотрудников в периметре</div>
+        <div class="mc-lbl">Масштаб команд</div>
+        <div class="mc-val c-wh">2000+</div>
+        <div class="mc-sub">сотрудников в периметре</div>
       </div>
 
       <div class="mc">
-        <div class="mc-lbl" data-e="m2l">ROI портфеля</div>
-        <div class="mc-val arrow-up" data-e="m2v">↑</div>
-        <div class="mc-sub" data-e="m2s">ресурсы на ценных проектах</div>
+        <div class="mc-lbl">ROI портфеля</div>
+        <div class="mc-val arrow-up">↑</div>
+        <div class="mc-sub">ресурсы на ценных проектах</div>
       </div>
 
       <div class="mc">
-        <div class="mc-lbl" data-e="m3l">Затраты</div>
-        <div class="mc-val arrow-dn" data-e="m3v">↓</div>
-        <div class="mc-sub" data-e="m3s">оптимизация портфеля</div>
+        <div class="mc-lbl">Затраты</div>
+        <div class="mc-val arrow-dn">↓</div>
+        <div class="mc-sub">оптимизация портфеля</div>
       </div>
 
       <div class="mc">
-        <div class="mc-lbl" data-e="m4l">Time-to-Market</div>
-        <div class="mc-val c-blue" data-e="m4v">×3</div>
-        <div class="mc-sub" data-e="m4s">ускорение вывода продуктов</div>
+        <div class="mc-lbl">Time-to-Market</div>
+        <div class="mc-val c-blue">×3</div>
+        <div class="mc-sub">ускорение вывода продуктов</div>
       </div>
 
       <div class="mc">
-        <div class="mc-lbl" data-e="m5l">Сходимость планов</div>
-        <div class="mc-val c-blue" data-e="m5v" style="font-size:1.3rem">50% → 85%</div>
+        <div class="mc-lbl">Сходимость планов</div>
+        <div class="mc-val c-blue" style="font-size:1.3rem">50% → 85%</div>
         <div class="prog-wrap" style="margin-top:8px">
           <div class="prog-track"><div class="prog-fill" id="pf"></div></div>
         </div>
-        <div class="mc-sub" style="margin-top:5px" data-e="m5s">предсказуемость</div>
+        <div class="mc-sub" style="margin-top:5px">предсказуемость</div>
       </div>
 
     </div>
@@ -446,29 +400,29 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
   <div class="container">
     <div class="sec-hd fu">
       <div class="eyebrow">Типичная проблема</div>
-      <h2 class="heading" data-e="pt">Компании теряют до 70% бюджета<br>на неэффективные инициативы</h2>
+      <h2 class="heading">Компании теряют до 70% бюджета<br>на неэффективные инициативы</h2>
     </div>
 
     <div class="prob-cards fu">
       <div class="prob-card">
         <div class="pc-ico">🕳️</div>
-        <h3 data-e="p1t">Пропасть между стратегией и исполнением</h3>
-        <p data-e="p1d">Цели сформулированы на уровне руководства, но не доходят до команд в виде конкретных приоритетов. Каждый движется в своём направлении.</p>
+        <h3>Пропасть между стратегией и исполнением</h3>
+        <p>Цели сформулированы на уровне руководства, но не доходят до команд в виде конкретных приоритетов. Каждый движется в своём направлении.</p>
       </div>
       <div class="prob-card">
         <div class="pc-ico">⚡</div>
-        <h3 data-e="p2t">Несвоевременные ситуационные решения</h3>
-        <p data-e="p2d">Решения принимаются в режиме реакции, без системных точек контроля. Критические развилки проходят без должного внимания.</p>
+        <h3>Несвоевременные ситуационные решения</h3>
+        <p>Решения принимаются в режиме реакции, без системных точек контроля. Критические развилки проходят без должного внимания.</p>
       </div>
       <div class="prob-card">
         <div class="pc-ico">🌫️</div>
-        <h3 data-e="p3t">Низкая предсказуемость и прозрачность реализации</h3>
-        <p data-e="p3d">Непонятно, что реально происходит с портфелем. Планы расходятся с фактом, риски всплывают поздно, доверие к прогнозам падает.</p>
+        <h3>Низкая предсказуемость и прозрачность реализации</h3>
+        <p>Непонятно, что реально происходит с портфелем. Планы расходятся с фактом, риски всплывают поздно, доверие к прогнозам падает.</p>
       </div>
       <div class="prob-card">
         <div class="pc-ico">🏃</div>
-        <h3 data-e="p4t">Процессы не поспевают за изменениями</h3>
-        <p data-e="p4d">Рынок и контекст меняются быстро, а операционная система остаётся прежней. Компания теряет скорость там, где должна выигрывать.</p>
+        <h3>Процессы не поспевают за изменениями</h3>
+        <p>Рынок и контекст меняются быстро, а операционная система остаётся прежней. Компания теряет скорость там, где должна выигрывать.</p>
       </div>
     </div>
   </div>
@@ -479,36 +433,36 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
   <div class="container">
     <div class="sec-hd fu">
       <div class="eyebrow">Что я внедряю</div>
-      <h2 class="heading" data-e="sol-title">Система управления и принятия решений<br>на всех уровнях — от стратегии до исполнения</h2>
+      <h2 class="heading">Система управления и принятия решений<br>на всех уровнях — от стратегии до исполнения</h2>
     </div>
     <div class="sol-grid fu">
 
       <div class="sol-card">
         <div class="sol-num">01</div>
         <div class="sol-icon">🔄</div>
-        <h3 data-e="sol1t">Операционный ритм</h3>
-        <p data-e="sol1d">Стратегическое и квартальное планирование, управление рисками, подведение итогов на QBR — регулярные точки синхронизации, которые держат компанию на курсе.</p>
+        <h3>Операционный ритм</h3>
+        <p>Стратегическое и квартальное планирование, управление рисками, подведение итогов на QBR — регулярные точки синхронизации, которые держат компанию на курсе.</p>
       </div>
 
       <div class="sol-card">
         <div class="sol-num">02</div>
         <div class="sol-icon">🎯</div>
-        <h3 data-e="sol2t">Управление портфелем с контрольными точками</h3>
-        <p data-e="sol2d">Вовремя останавливаем неэффективное, запускаем прорывное. Портфель живёт в связке со стратегией — каждый проект либо работает на цель, либо освобождает ресурс.</p>
+        <h3>Управление портфелем с контрольными точками</h3>
+        <p>Вовремя останавливаем неэффективное, запускаем прорывное. Портфель живёт в связке со стратегией — каждый проект либо работает на цель, либо освобождает ресурс.</p>
       </div>
 
       <div class="sol-card">
         <div class="sol-num">03</div>
         <div class="sol-icon">📦</div>
-        <h3 data-e="sol3t">Стандарты продуктового цикла</h3>
-        <p data-e="sol3d">Единый процесс от идеи до релиза и оценки результата. Команды двигаются предсказуемо, решения принимаются в нужных точках, а не хаотично.</p>
+        <h3>Стандарты продуктового цикла</h3>
+        <p>Единый процесс от идеи до релиза и оценки результата. Команды двигаются предсказуемо, решения принимаются в нужных точках, а не хаотично.</p>
       </div>
 
       <div class="sol-card">
         <div class="sol-num">04</div>
         <div class="sol-icon">🤖</div>
-        <h3 data-e="sol4t">Адаптация системы под AI</h3>
-        <p data-e="sol4d">Встраиваем AI в управленческие процессы и операционную систему — не как инструмент, а как часть архитектуры принятия решений.</p>
+        <h3>Адаптация системы под AI</h3>
+        <p>Встраиваем AI в управленческие процессы и операционную систему — не как инструмент, а как часть архитектуры принятия решений.</p>
       </div>
 
     </div>
@@ -520,29 +474,29 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
   <div class="container">
     <div class="sec-hd fu">
       <div class="eyebrow">Методология</div>
-      <h2 class="heading" data-e="prt">Как я работаю</h2>
-      <p class="subhead" style="margin-top:10px;max-width:460px" data-e="prs">Чёткий процесс от первого контакта до работающей системы</p>
+      <h2 class="heading">Как я работаю</h2>
+      <p class="subhead" style="margin-top:10px;max-width:460px">Чёткий процесс от первого контакта до работающей системы</p>
     </div>
     <div class="steps fu">
       <div class="step">
         <div class="step-ico">💬<span class="sn">1</span></div>
-        <h3 data-e="s1t">Запрос</h3>
-        <p data-e="s1d">Обсуждаем задачу, контекст компании и ожидаемый результат. Договариваемся о критериях успеха.</p>
+        <h3>Запрос</h3>
+        <p>Обсуждаем задачу, контекст компании и ожидаемый результат. Договариваемся о критериях успеха.</p>
       </div>
       <div class="step">
         <div class="step-ico">🔍<span class="sn">2</span></div>
-        <h3 data-e="s2t">Диагностика</h3>
-        <p data-e="s2d">Анализирую текущую систему управления, портфель инициатив и точки принятия решений.</p>
+        <h3>Диагностика</h3>
+        <p>Анализирую текущую систему управления, портфель инициатив и точки принятия решений.</p>
       </div>
       <div class="step">
         <div class="step-ico">📐<span class="sn">3</span></div>
-        <h3 data-e="s3t">План</h3>
-        <p data-e="s3d">Проектирую целевую модель: операционный ритм, портфельный процесс, governance и форматы синхронизации.</p>
+        <h3>План</h3>
+        <p>Проектирую целевую модель: операционный ритм, портфельный процесс, governance и форматы синхронизации.</p>
       </div>
       <div class="step">
         <div class="step-ico">🚀<span class="sn">4</span></div>
-        <h3 data-e="s4t">Внедрение</h3>
-        <p data-e="s4d">Запускаю систему вместе с командой. Обеспечиваю приживаемость, устойчивость и передачу знаний.</p>
+        <h3>Внедрение</h3>
+        <p>Запускаю систему вместе с командой. Обеспечиваю приживаемость, устойчивость и передачу знаний.</p>
       </div>
     </div>
   </div>
@@ -553,23 +507,23 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
   <div class="container">
     <div class="sec-hd fu">
       <div class="eyebrow">Опыт</div>
-      <h2 class="heading" data-e="ct">Компании, где я строил системы</h2>
+      <h2 class="heading">Компании, где я строил системы</h2>
     </div>
     <div class="co-grid fu">
       <div class="co-card">
-        <div class="co-name" data-e="c1n">VK</div>
-        <div class="co-role" data-e="c1r">Head of Portfolio Ops</div>
-        <div class="co-res" data-e="c1d">End-to-end операционный цикл для 2000+ человек</div>
+        <div class="co-name">VK</div>
+        <div class="co-role">Head of Portfolio Ops</div>
+        <div class="co-res">End-to-end операционный цикл для 2000+ человек</div>
       </div>
       <div class="co-card">
-        <div class="co-name" data-e="c2n">X5 Group</div>
-        <div class="co-role" data-e="c2r">Agile Transformation</div>
-        <div class="co-res" data-e="c2d">Operating model для 12 продуктовых направлений</div>
+        <div class="co-name">X5 Group</div>
+        <div class="co-role">Agile Transformation</div>
+        <div class="co-res">Operating model для 12 продуктовых направлений</div>
       </div>
       <div class="co-card">
-        <div class="co-name" data-e="c3n">Crypto</div>
-        <div class="co-role" data-e="c3r">Head of Transformation</div>
-        <div class="co-res" data-e="c3d">Построил продуктовую операционную модель</div>
+        <div class="co-name">Crypto</div>
+        <div class="co-role">Head of Transformation</div>
+        <div class="co-res">Построил продуктовую операционную модель</div>
       </div>
     </div>
   </div>
@@ -580,45 +534,45 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
   <div class="container">
     <div class="sec-hd fu">
       <div class="eyebrow">Результаты</div>
-      <h2 class="heading" data-e="rt">Что получает компания</h2>
-      <p class="subhead" style="margin-top:10px;max-width:520px" data-e="rs">Измеримые финансовые и операционные эффекты от внедрения системы управления портфелем</p>
+      <h2 class="heading">Что получает компания</h2>
+      <p class="subhead" style="margin-top:10px;max-width:520px">Измеримые финансовые и операционные эффекты от внедрения системы управления портфелем</p>
     </div>
     <div class="res-grid">
       <div class="rc hl fu">
         <div class="rc-ico">📈</div>
-        <div class="rc-num c-money" data-e="r1n">↑ ROI</div>
-        <div class="rc-title" data-e="r1t">Портфель работает на цели</div>
-        <div class="rc-desc" data-e="r1d">Ресурсы перераспределяются с инертных проектов на высокоприоритетные. Деньги идут туда, где создают реальную ценность.</div>
+        <div class="rc-num c-money">↑ ROI</div>
+        <div class="rc-title">Портфель работает на цели</div>
+        <div class="rc-desc">Ресурсы перераспределяются с инертных проектов на высокоприоритетные. Деньги идут туда, где создают реальную ценность.</div>
       </div>
       <div class="rc hl fu d1">
         <div class="rc-ico">💰</div>
-        <div class="rc-num c-money" data-e="r2n">↓ Затраты</div>
-        <div class="rc-title" data-e="r2t">Оптимизация расходов портфеля</div>
-        <div class="rc-desc" data-e="r2d">Полная видимость по всем инициативам позволяет остановить проекты без стратегической ценности и высвободить бюджет.</div>
+        <div class="rc-num c-money">↓ Затраты</div>
+        <div class="rc-title">Оптимизация расходов портфеля</div>
+        <div class="rc-desc">Полная видимость по всем инициативам позволяет остановить проекты без стратегической ценности и высвободить бюджет.</div>
       </div>
       <div class="rc fu d2">
         <div class="rc-ico">⚡</div>
-        <div class="rc-num c-blue" data-e="r3n">×3</div>
-        <div class="rc-title" data-e="r3t">Ускорение Time-to-Market</div>
-        <div class="rc-desc" data-e="r3d">Устранение зависимостей и чёткий приоритет снижают TTM с 6 до 2 месяцев.</div>
+        <div class="rc-num c-blue">×3</div>
+        <div class="rc-title">Ускорение Time-to-Market</div>
+        <div class="rc-desc">Устранение зависимостей и чёткий приоритет снижают TTM с 6 до 2 месяцев.</div>
       </div>
       <div class="rc fu">
         <div class="rc-ico">🎯</div>
-        <div class="rc-num c-blue" data-e="r4n">90%</div>
-        <div class="rc-title" data-e="r4t">Предсказуемость исполнения</div>
-        <div class="rc-desc" data-e="r4d">Планы сходятся. Команды знают приоритеты и двигаются в одном направлении.</div>
+        <div class="rc-num c-blue">90%</div>
+        <div class="rc-title">Предсказуемость исполнения</div>
+        <div class="rc-desc">Планы сходятся. Команды знают приоритеты и двигаются в одном направлении.</div>
       </div>
       <div class="rc fu d1">
         <div class="rc-ico">🧭</div>
-        <div class="rc-num lbl" data-e="r5n">Alignment</div>
-        <div class="rc-title" data-e="r5t">Стратегия → Execution</div>
-        <div class="rc-desc" data-e="r5d">Каждая команда понимает, как её работа связана со стратегическими целями компании.</div>
+        <div class="rc-num lbl">Alignment</div>
+        <div class="rc-title">Стратегия → Execution</div>
+        <div class="rc-desc">Каждая команда понимает, как её работа связана со стратегическими целями компании.</div>
       </div>
       <div class="rc fu d2">
         <div class="rc-ico">🔒</div>
-        <div class="rc-num lbl" data-e="r6n">Governance</div>
-        <div class="rc-title" data-e="r6t">Точки принятия решений</div>
-        <div class="rc-desc" data-e="r6d">Форумы, комитеты и ревью — правильные решения на правильном уровне, вовремя.</div>
+        <div class="rc-num lbl">Governance</div>
+        <div class="rc-title">Точки принятия решений</div>
+        <div class="rc-desc">Форумы, комитеты и ревью — правильные решения на правильном уровне, вовремя.</div>
       </div>
     </div>
   </div>
@@ -628,10 +582,10 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
 <section id="cta">
   <div class="container">
     <div class="cta-box fu">
-      <h2 class="heading" data-e="ctat">Обсудим вашу задачу</h2>
-      <p class="subhead" data-e="ctas">Первый разговор — бесплатно. Расскажите о ситуации, и я скажу, чем могу помочь.</p>
+      <h2 class="heading">Обсудим вашу задачу</h2>
+      <p class="subhead">Первый разговор — бесплатно. Расскажите о ситуации, и я скажу, чем могу помочь.</p>
       <div class="cta-btns">
-        <a href="https://t.me/Agileguru" target="_blank" class="btn-p" style="font-size:1rem;padding:15px 34px"><span data-e="btn3">✈&nbsp; Написать в Telegram</span></a>
+        <a href="https://t.me/Agileguru" target="_blank" class="btn-p" style="font-size:1rem;padding:15px 34px"><span>✈&nbsp; Написать в Telegram</span></a>
       </div>
       <div class="cta-note">@Agileguru · Дмитрий Курдюмов</div>
     </div>
@@ -641,75 +595,10 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
 <footer>© 2026 Дмитрий Курдюмов · Strategy Portfolio Consultant</footer>
 
 <script>
-/* scroll fade */
 const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in') }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
 document.querySelectorAll('.fu').forEach(el => io.observe(el))
-
-/* progress bar */
 const pf = document.getElementById('pf')
-new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) pf.style.width = '82%' }), { threshold: 0.5 }).observe(pf.closest('.mc'))
-
-
-/* ── localStorage restore ── */
-const SK = 'dk_v1'
-function restore() {
-  const d = JSON.parse(localStorage.getItem(SK) || '{}')
-  Object.entries(d).forEach(([k, v]) => {
-    const el = document.querySelector(`[data-e="${k}"]`)
-    if(el) el.innerHTML = v
-  })
-}
-restore()
-
-/* ── Edit mode ── */
-let em = false
-
-// block link navigation while editing
-document.addEventListener('click', e => {
-  if(!em) return
-  const a = e.target.closest('a')
-  if(a) e.preventDefault()
-}, true)
-
-function toggleEdit() {
-  em = !em
-  document.body.classList.toggle('em', em)
-  document.getElementById('toolbar').classList.toggle('on', em)
-  const btn = document.getElementById('editBtn')
-  btn.classList.toggle('on', em)
-  btn.textContent = em ? '✓ Выйти' : '✏️ Редактировать'
-  document.querySelectorAll('[data-e]').forEach(el => {
-    el.contentEditable = em ? 'true' : 'false'
-  })
-}
-
-function saveLS() {
-  const d = {}
-  document.querySelectorAll('[data-e]').forEach(el => { d[el.dataset.e] = el.innerHTML })
-  localStorage.setItem(SK, JSON.stringify(d))
-  const b = document.querySelector('.tb-save')
-  b.textContent = '✓ Сохранено'; setTimeout(() => b.textContent = '💾 Сохранить', 1600)
-}
-
-function resetLS() {
-  if(!confirm('Сбросить все правки?')) return
-  localStorage.removeItem(SK); location.reload()
-}
-
-function dlHtml() {
-  const cl = document.documentElement.cloneNode(true)
-  cl.querySelector('body').classList.remove('em')
-  cl.querySelector('#toolbar').classList.remove('on')
-  cl.querySelector('#editBtn').classList.remove('on')
-  cl.querySelector('#editBtn').textContent = '✏️ Редактировать'
-  document.querySelectorAll('[data-e]').forEach(el => {
-    const t = cl.querySelector(`[data-e="${el.dataset.e}"]`)
-    if(t){ t.innerHTML = el.innerHTML; t.removeAttribute('contenteditable') }
-  })
-  const b = new Blob(['<!DOCTYPE html>\n' + cl.outerHTML], { type: 'text/html' })
-  const a = document.createElement('a'); a.href = URL.createObjectURL(b)
-  a.download = 'dmitry-kurdyumov.html'; a.click()
-}
+if(pf) new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) pf.style.width = '82%' }), { threshold: 0.5 }).observe(pf.closest('.mc'))
 </script>
 </body>
 </html>
