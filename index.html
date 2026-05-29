@@ -207,7 +207,7 @@ body.em .grad-text{
 .gap-line::after{content:'⚡';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg2);padding:0 10px;font-size:1.1rem}
 .gap-badge{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:100px;padding:6px 16px;font-size:.78rem;color:var(--red);font-weight:700;white-space:nowrap}
 
-.prob-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.prob-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .prob-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 20px;transition:all .3s}
 .prob-card:hover{border-color:rgba(239,68,68,.25);transform:translateY(-4px)}
 .pc-ico{font-size:1.3rem;margin-bottom:12px}
@@ -446,50 +446,29 @@ footer{padding:26px;text-align:center;color:var(--gray);font-size:.8rem;border-t
   <div class="container">
     <div class="sec-hd fu">
       <div class="eyebrow">Типичная проблема</div>
-      <h2 class="heading" data-e="pt">Между стратегией и исполнением — разрыв</h2>
-      <p class="subhead" style="margin-top:10px;max-width:580px" data-e="ps">Компания растёт, команды работают — но деньги и люди уходят не туда.</p>
+      <h2 class="heading" data-e="pt">Компании теряют до 70% бюджета<br>на неэффективные инициативы</h2>
     </div>
 
-    <div class="gap-box fu">
-      <div class="gap-side">
-        <div class="gs-ico">🎯</div>
-        <div class="gs-lbl">C-level</div>
-        <div class="gs-title" data-e="gl">Стратегия и цели</div>
+    <div class="prob-cards fu">
+      <div class="prob-card">
+        <div class="pc-ico">🕳️</div>
+        <h3 data-e="p1t">Пропасть между стратегией и исполнением</h3>
+        <p data-e="p1d">Цели сформулированы на уровне руководства, но не доходят до команд в виде конкретных приоритетов. Каждый движется в своём направлении.</p>
       </div>
-      <div class="gap-mid">
-        <div class="gap-line"></div>
-        <div class="gap-badge" data-e="gb">⚡ Пропасть</div>
+      <div class="prob-card">
+        <div class="pc-ico">⚡</div>
+        <h3 data-e="p2t">Несвоевременные ситуационные решения</h3>
+        <p data-e="p2d">Решения принимаются в режиме реакции, без системных точек контроля. Критические развилки проходят без должного внимания.</p>
       </div>
-      <div class="gap-side">
-        <div class="gs-ico">⚙️</div>
-        <div class="gs-lbl">Команды</div>
-        <div class="gs-title" data-e="gr">Ежедневное исполнение</div>
+      <div class="prob-card">
+        <div class="pc-ico">🌫️</div>
+        <h3 data-e="p3t">Низкая предсказуемость и прозрачность реализации</h3>
+        <p data-e="p3d">Непонятно, что реально происходит с портфелем. Планы расходятся с фактом, риски всплывают поздно, доверие к прогнозам падает.</p>
       </div>
-    </div>
-
-    <div class="prob-cards">
-      <div class="prob-card fu">
-        <div class="pc-ico">🔀</div>
-        <h3 data-e="p1t">Команды идут несогласованно</h3>
-        <p data-e="p1d">Каждое направление тянет в свою сторону. Нет общего приоритета — нет общего результата. Усилия рассеиваются.</p>
-      </div>
-      <div class="prob-card fu d1">
-        <div class="pc-ico">💸</div>
-        <h3 data-e="p2t">Бюджеты уходят в инертные проекты</h3>
-        <p data-e="p2d">Ресурсы продолжают финансировать проекты, которые давно потеряли стратегическую ценность — но никто не остановил.</p>
-      </div>
-      <div class="prob-card fu d2">
-        <div class="pc-ico">🐢</div>
-        <h3 data-e="p3t">Компания растёт медленнее потенциала</h3>
-        <p data-e="p3d">Деньги и люди есть. Но они не на том. Конкуренты идут быстрее — не потому что сильнее, а потому что сфокусированнее.</p>
-      </div>
-    </div>
-
-    <div class="stat-bar fu">
-      <div class="stat-n" data-e="stn">70%</div>
-      <div class="stat-b">
-        <h3 data-e="sth">портфеля инициатив можно оптимизировать</h3>
-        <p data-e="std">За счёт правильно построенной системы управления — без найма дополнительных людей и увеличения бюджета. Только за счёт структуры, приоритетов и прозрачности принятия решений.</p>
+      <div class="prob-card">
+        <div class="pc-ico">🏃</div>
+        <h3 data-e="p4t">Процессы не поспевают за изменениями</h3>
+        <p data-e="p4d">Рынок и контекст меняются быстро, а операционная система остаётся прежней. Компания теряет скорость там, где должна выигрывать.</p>
       </div>
     </div>
   </div>
