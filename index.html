@@ -45,7 +45,13 @@ nav{
 }
 .nav-left{display:flex;align-items:center;gap:14px}
 .nav-logo{font-weight:800;font-size:1.05rem;color:var(--white);letter-spacing:-.01em}
-.nav-cta{background:var(--blue);color:#fff;border:none;padding:10px 22px;border-radius:9px;font-size:.88rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s}
+.nav-cta{
+  background:var(--blue);color:#fff;border:none;padding:10px 22px;border-radius:9px;
+  font-size:.88rem;font-weight:600;cursor:pointer;text-decoration:none;
+  transition:all .3s;
+  opacity:0;pointer-events:none;transform:translateY(-6px);
+}
+.nav-cta.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .nav-cta:hover{background:var(--blue-l);transform:translateY(-1px);box-shadow:0 6px 20px rgba(59,130,246,.35)}
 
 
